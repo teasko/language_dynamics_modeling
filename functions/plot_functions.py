@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 
 
 ############### plot absolute #############
-def plot_trajectory(trajectory, data,**kwargs):
+def plot_trajectory(trajectory, data,language,**kwargs):
     """
     plot trajectory: theoretic vs empirical
     
     input: 
         - trajectory: array of shape 4xYears (years - XH - XL - XB ) 
         - data: empirical data; data object
+        - language: name of the minority language
         - kwargs:
             1) y_scaling: 
                 intege
@@ -40,11 +41,11 @@ def plot_trajectory(trajectory, data,**kwargs):
     plt.scatter(data.Years, (data.Abs.NB+data.Abs.NH)/y_scaling, color=(.66, 0, .31))
 
     # NB
-    plt.plot(trajectory[0, ], trajectory[3, ]/y_scaling, linestyle = "--",color=(.18, 0.5, .18), label="Friulian speakers")
+    plt.plot(trajectory[0, ], trajectory[3, ]/y_scaling, linestyle = "--",color=(.18, 0.5, .18), label=f"{language} speakers")
     plt.scatter(data.Years, data.Abs.NB/y_scaling, color=(.18, 0.5, .18))
   
     # NH
-    plt.plot(trajectory[0, ], trajectory[1, ]/y_scaling, linestyle = ":", color=(.18, .31, .31), label="Italian speakers")
+    plt.plot(trajectory[0, ], trajectory[1, ]/y_scaling, linestyle = ":", color=(.18, .31, .31), label=f"non-{language} speakers")
     plt.scatter(data.Years, data.Abs.NH/y_scaling, color=(.18, .31, .31))
     
     # plot settings
@@ -67,13 +68,14 @@ def plot_trajectory(trajectory, data,**kwargs):
         
         
 ############### plot relative #################        
-def plot_trajectory_relative(trajectory_abs, data,**kwargs):
+def plot_trajectory_relative(trajectory_abs, data, language, **kwargs):
     """
     plot trajectory relative: theoretic vs empirical
     
         input: 
         - trajectory: array of shape 4xYears (years - XH - XL - XB ) 
         - data: empirical data; data object
+        - language: name of minority language, string
         - kwargs:
             1) fname
                 string
@@ -92,11 +94,11 @@ def plot_trajectory_relative(trajectory_abs, data,**kwargs):
     plt.figure(figsize=(14,8))
     
     # NB
-    plt.plot(trajectory[0, ], trajectory[3, ], linestyle = "--",color=(.18, 0.5, .18), label="Friulian speakers")
+    plt.plot(trajectory[0, ], trajectory[3, ], linestyle = "--",color=(.18, 0.5, .18), label=f"{language} speakers")
     plt.scatter(data.Years, data.Rel.xB, color=(.18, 0.5, .18))
     
     # NH
-    plt.plot(trajectory[0, ], trajectory[1, ],linestyle = ":", color=(.18, .31, .31), label="Italian speakers")
+    plt.plot(trajectory[0, ], trajectory[1, ],linestyle = ":", color=(.18, .31, .31), label=f"non-{language} speakers")
     plt.scatter(data.Years, data.Rel.xH, color=(.18, .31, .31))
 
 
@@ -124,13 +126,14 @@ def plot_trajectory_relative(trajectory_abs, data,**kwargs):
         
         
 ############## plot relative fill #########################
-def plot_trajectory_relative_fill(trajectory_abs, data, **kwargs):
+def plot_trajectory_relative_fill(trajectory_abs, data,language, **kwargs):
     """
     plot trajectory relative, filled: theoretic vs empirical
     
     input: 
         - trajectory: array of shape 4xYears (years - XH - XL - XB ) 
         - data: empirical data; data object
+        - language: name of minority language, string
         - kwargs:
             1) fname
                 string
@@ -146,7 +149,7 @@ def plot_trajectory_relative_fill(trajectory_abs, data, **kwargs):
     plt.figure(figsize=(14,8))
 
     # NH
-    plt.fill_between(trajectory[0, ], trajectory[1, ]+trajectory[3, ],trajectory[1, ]*0, color=(.7, .7, .7), label="Italian speakers")
+    plt.fill_between(trajectory[0, ], trajectory[1, ]+trajectory[3, ],trajectory[1, ]*0, color=(.7, .7, .7), label=f"non-{language} speakers")
     #plt.scatter(data.Years, data.Abs.NH/N, color=(.18, .31, .31))
     
     # NL
@@ -154,7 +157,7 @@ def plot_trajectory_relative_fill(trajectory_abs, data, **kwargs):
     #plt.scatter(data.Years, data.Abs.NL/N, color=(.66, 0, .31))
 
     # NB
-    plt.fill_between(trajectory[0, ], trajectory[3, ],trajectory[1, ]*0, color=(.31, .31, .31), label="Friulian speakers")
+    plt.fill_between(trajectory[0, ], trajectory[3, ],trajectory[1, ]*0, color=(.31, .31, .31), label=f"{language} speakers")
     plt.scatter(data.Years, data.Abs.NB/N, color=(1, 1, 1))
 
     
