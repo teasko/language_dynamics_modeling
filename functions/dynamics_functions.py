@@ -168,6 +168,8 @@ def x_r_dot_const(param, xh, xl, xb):
     # adult learning parameters
     a_HB = param_local.a.a_HB
     a_LB = param_local.a.a_LB
+    a_BH = param_local.a.a_BH
+    a_BL = param_local.a.a_BL
 
     g_H = (1 - param_local.s.sHB) * f_H + param_local.s.sBH * f_B + param_local.s.sLH * f_L
     g_L = (1 - param_local.s.sLB - param_local.s.sLH) * f_L
@@ -178,10 +180,12 @@ def x_r_dot_const(param, xh, xl, xb):
         # not implemented here
         raise NotImplementedError("the absolute case is not implemented here")
     else:
-        xhdot = -(1 - param_local.pop.mu) * a_HB * xh + param_local.pop.lam * (g_H - xh) \
+        xhdot = -(1 - param_local.pop.mu) * a_HB * xh + (1 - param_local.pop.mu) * a_BH * xb \
+                + param_local.pop.lam * (g_H - xh) \
                 + param_local.mig_rel.nu * (param_local.mig_rel.mh - xh)
 
-        xldot = -(1 - param_local.pop.mu) * a_LB * xl + param_local.pop.lam * (g_L -xl)\
+        xldot = -(1 - param_local.pop.mu) * a_LB * xl + (1 - param_local.pop.mu) * a_BL * xb \
+                + param_local.pop.lam * (g_L -xl)\
                 + param_local.mig_rel.nu * (param_local.mig_rel.ml -xl)
 
         xbdot = -xhdot-xldot
