@@ -59,6 +59,7 @@ def plot_trajectory(trajectory, data,language,**kwargs):
     plt.xlabel("Year",fontweight="bold")
     plt.ylabel(f"Number of speakers in {y_scaling}",fontweight="bold")
     plt.legend()
+    plt.grid(axis = "y")
 
     if "fname" in kwargs.keys():
         plt.savefig(kwargs["fname"],bbox_inches="tight");
@@ -101,7 +102,7 @@ def plot_trajectory_relative(trajectory_abs, data, language, **kwargs):
     plt.plot(trajectory[0, ], trajectory[1, ],linestyle = ":", color=(.18, .31, .31), label=f"non-{language} speakers")
     plt.scatter(data.Years, data.Rel.xH, color=(.18, .31, .31))
 
-
+    #plt.hlines(y=0.5,xmin=trajectory[0, 0] - 1, xmax=trajectory[0, -1]+ 1);
     
 
     
@@ -111,13 +112,17 @@ def plot_trajectory_relative(trajectory_abs, data, language, **kwargs):
     
     plt.ylim(0, 1)
     plt.xlim(trajectory[0, 0] - 1, trajectory[0, -1]+ 1)
-
+    
 
     plt.title("Linguistic environment over time - relative",fontweight="bold")
     plt.xlabel("Year",fontweight="bold")
     plt.ylabel("fraction of speakers",fontweight="bold")
     plt.legend()
-
+    
+    plt.yticks(ticks = np.arange(0,1.1,0.1)) 
+    
+    plt.grid(axis = "y")
+    
     if "fname" in kwargs.keys():
         plt.savefig(kwargs["fname"],bbox_inches="tight");
 
@@ -169,7 +174,8 @@ def plot_trajectory_relative_fill(trajectory_abs, data,language, **kwargs):
     plt.ylim(0, 1)
     plt.xlim(trajectory[0,0], trajectory[0,-1])
     
-
+    plt.axhline(y=0.5)
+    plt.yticks(ticks = np.arange(0,1.1,0.1)) 
 
     plt.title("Linguistic environment over time - relative",fontweight="bold")
     plt.xlabel("Year",fontweight="bold")
