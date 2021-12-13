@@ -174,8 +174,11 @@ def plot_trajectory_relative_fill(trajectory_abs, data,language, **kwargs):
     plt.ylim(0, 1)
     plt.xlim(trajectory[0,0], trajectory[0,-1])
     
-    plt.axhline(y=0.5)
+    
     plt.yticks(ticks = np.arange(0,1.1,0.1)) 
+    
+    plt.grid(axis = "y", color='white', linewidth = 0.5)
+    plt.tick_params(axis='y', which='both', labelleft='on', labelright='on')
 
     plt.title("Linguistic environment over time - relative",fontweight="bold")
     plt.xlabel("Year",fontweight="bold")
